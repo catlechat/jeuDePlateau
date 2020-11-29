@@ -1,7 +1,9 @@
 package fr.esgi.jeu;
 
 public class Plateau {
-	//nombre de caises
-	//nombre des caises à l'effet ( faire une classe pour les caises a l'effet ? )
-	//
+	//taille petit moyen grand 
+	//tableau de cases
+	//a remplisage rand definir si la case c'est une case malus, bonus ou rien
+	
+	//init
 }
