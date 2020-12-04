@@ -1,9 +1,16 @@
 package fr.esgi.jeu;
 
 public class Plateau {
-	//taille petit moyen grand 
-	//tableau de cases
-	//a remplisage rand definir si la case c'est une case malus, bonus ou rien
+	private String name;
+	private int size;
+	private int[] caises;
 	
-	//init
+	public Plateau(String name, int size, int[] caises){
+		this.name = name;
+		this.size = size;
+		this.caises = caises;
+	}
+	public String getName() {
+		return this.name;
+	}
 }

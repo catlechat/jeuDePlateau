@@ -15,8 +15,4 @@ public class Player {
 		this.position += 4;
 	}
 	
-/*	public static void main(String[] args) {		
-		System.out.print("Welcome to the game!");
-		Player p1 = Player("Ivan",0);
-	}*/
 }
