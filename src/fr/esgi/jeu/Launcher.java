@@ -20,7 +20,7 @@ public class Launcher {
 		jeu1.getAllPlayers();
 		jeu1.getPlateau();
 		jeu1.setPlayersInBeginning();
-		jeu1.printBoard();
+		jeu1.printGame();
 		
 	}
 }

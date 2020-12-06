@@ -11,20 +11,20 @@ public class Square {
 	public Square(int id, Effect effect) {
 		this.id = id;
 		this.effect = effect;
-		this.players = null;
+		this.players = new ArrayList<Player>();
 	}
 	//constructeur de la case du début
 	public Square() {
 		Effect effect = Effect.BEGIN;
 		this.id = 0;
 		this.effect = effect;
-		this.players = null;
+		this.players = new ArrayList<Player>();
 	}
 	//constructeur de la case de fin
 	public Square(int id) {
 		this.id = id;
 		this.effect = null;
-		this.players = null;
+		this.players = new ArrayList<Player>();
 	}
 	public Effect getEffect() {
 		return this.effect;

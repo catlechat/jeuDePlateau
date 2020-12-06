@@ -31,6 +31,18 @@ public class Game {
 		Square first = this.board.getFirstSquare();
 		for (Player player : this.players) {
 			first.setPlayer(player);
+			player.setCoins(Effect.BEGIN);
+		}
+		System.out.println(Effect.BEGIN.getMessage());
+	}
+	public void printGame() {
+		System.out.println("Here the current state of the game:");
+		this.printPlayerCoins();
+		this.printBoard();
+	}
+	public void printPlayerCoins() {
+		for (Player player : this.players) {
+			System.out.println(player.getName() + " : " + player.getCoins() + " coins");
 		}
 	}
 	public void printBoard() {
