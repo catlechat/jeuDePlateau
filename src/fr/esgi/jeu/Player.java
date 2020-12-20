@@ -1,6 +1,11 @@
 package fr.esgi.jeu;
 
+import java.util.Random;
+
 public class Player {
+	private static final Random RANDOM = new Random();
+	private static final int DICE_SIZE = 6;
+
 	private String name;
 	private int position;
 	private int coins;
@@ -16,7 +21,7 @@ public class Player {
 	}
 
 	public void move() {
-		this.position += 4;
+		this.position += RANDOM.nextInt(DICE_SIZE)+1;
 	}
 
 	public int getCoins() {

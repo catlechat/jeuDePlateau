@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Square {
 	private Effect effect;
-	// private Player[] players;
 	private ArrayList<Player> players;
 
 	public Square(Effect effect) {

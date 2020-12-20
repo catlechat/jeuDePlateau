@@ -6,13 +6,11 @@ public class Board {
 	private static final Random RANDOM = new Random();
 	private String name;
 	private int size;
-	// private int[] caises;
 	private Square[] squares;
 
 	public Board(String name, int size) {
 		this.name = name;
 		this.size = size;
-		// this.caises = caises;
 	}
 
 	public String getName() {
@@ -27,9 +25,6 @@ public class Board {
 		return this.squares;
 	}
 
-	public Square getFirstSquare() {
-		return this.squares[0];
-	}
 
 	public Square[] generateSquares() {
 		int size = this.getSize();
