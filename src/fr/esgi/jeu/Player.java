@@ -19,22 +19,34 @@ public class Player {
 	public String getName() {
 		return this.name;
 	}
-
-	public void move() {
-		this.position += RANDOM.nextInt(DICE_SIZE)+1;
+	
+	public int getPosition() {
+		return this.position;
 	}
 
 	public int getCoins() {
 		return this.coins;
 	}
-
+	
+	
+	//deplacement des joueurs
+	public int move() {
+		int diceResult = RANDOM.nextInt(DICE_SIZE)+1;
+		this.position += diceResult;
+		return diceResult;
+	}
+	public void setPositionToBegin(int remainMoves) {
+		this.position = 0 + remainMoves;
+	}
+	
+	//mise à jour des pieces après atteinte d'une case
 	public void setCoins(Effect effect) {
 		if (effect.equals(Effect.PENALTY) || effect.equals(Effect.PENALTY_FOR_EVERYONE)) {
 			int temp = this.coins;
 			temp -= effect.getCoins();
 			// si le joueur après le malus a un nombre négatif de pièces, on le met à 0
 			this.coins = temp < 0 ? 0 : temp;
-		} else {
+		} else if(effect.equals(Effect.BONUS) || effect.equals(Effect.BEGIN)){
 			this.coins += effect.getCoins();
 		}
 	}

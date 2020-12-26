@@ -18,6 +18,10 @@ public class Square {
 	public void setPlayer(Player player) {
 		this.players.add(player);
 	}
+	
+	public void removePlayer(Player player) {
+		this.players.remove(player);
+	}
 
 	public ArrayList<Player> getPlayers() {
 		return this.players;

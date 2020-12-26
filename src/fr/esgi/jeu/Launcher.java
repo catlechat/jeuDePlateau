@@ -69,7 +69,9 @@ public class Launcher {
 			Game game1 = new Game(rand.nextInt(255)+1, board, players);
     		game1.setPlayersInBeginning();
 	   		System.out.println(Effect.BEGIN.getMessage());
-    		System.out.println(game1.toString());
+	   		while(!game1.conditionToWinIsMet) {
+	   			System.out.println(game1.toString());
+	   		}
 		}
 	}
 }
