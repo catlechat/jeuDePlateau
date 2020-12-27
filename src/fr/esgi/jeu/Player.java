@@ -41,7 +41,7 @@ public class Player {
 	
 	//mise à jour des pieces après atteinte d'une case
 	public void setCoins(Effect effect) {
-		if (effect.equals(Effect.PENALTY) || effect.equals(Effect.PENALTY_FOR_EVERYONE)) {
+		if (effect.equals(Effect.LOOSE) || effect.equals(Effect.PEN4A)) {
 			int temp = this.coins;
 			temp -= effect.getCoins();
 			// si le joueur après le malus a un nombre négatif de pièces, on le met à 0

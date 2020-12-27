@@ -26,4 +26,35 @@ public class Square {
 	public ArrayList<Player> getPlayers() {
 		return this.players;
 	}
+
+	public String toString(int position) {
+		//Une caise est sur 9 caracteres; La position est sur 3; l'effet est sur 5;
+		StringBuilder sb = new StringBuilder();
+		//numCase
+		sb.append("|__"+stringifyPosition(position)+"__|");
+		//effectCase
+		sb.append("|_"+this.effect+"_|");
+		//players
+		for (Player p : players) {
+			sb.append("|__"+p.getName()+"__|");
+		}
+		sb.append("\n");
+		return sb.toString();
+	}
+
+	public String stringifyPosition(Integer position){
+		String str = "000";
+		if (position == 0){
+			return str;
+		}else if(position/100 == 1){
+			return str = "100";
+		}else if(position/100 == 0){
+			if (position/10==0){
+				return str = "00"+position.toString();
+			}else{
+				return str = "0"+position.toString();
+			}
+		}
+		return str;
+	}
 }

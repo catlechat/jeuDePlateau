@@ -9,6 +9,7 @@ public class Launcher {
 
 	private static final int MIN_MAP_SIZE = 20;
 	private static final int MAX_MAP_SIZE = 60;
+	private static final int PLAYER_NAME_SIZE = 3;
 	/*private static final int LARGE_MAP = 40;
 
 	private static final Hashtable<String,Integer> MAP_SIZES = new Hashtable<String,Integer>(){
@@ -17,7 +18,7 @@ public class Launcher {
 	*/
 
 
-	private static final String[] BOARD_NAMES = {"Jungle","ICE"};
+	private static final String[] BOARD_NAMES = {"Jungle","Temple"}; //les noms doivent etre sur 6 caises !
 
 	private static final int MIN_PLAYERS = 2;
 	private static final int MAX_PLAYERS = 8;
@@ -40,8 +41,14 @@ public class Launcher {
 			}while(playerCount>MAX_PLAYERS || playerCount < MIN_PLAYERS);
 			Player[] players = new Player[playerCount];
 			for(int i = 0; i<playerCount;i++) {
-				System.out.println("Please enter the name of player n°"+(i+1)+":");
-				String name = scanner.next();
+				String name = "";
+				do {
+					System.out.println("Please enter the name of player n°"+(i+1)+":");
+					name = scanner.next();
+					if (name.length()!=PLAYER_NAME_SIZE){
+						System.out.println("A name must have "+PLAYER_NAME_SIZE+" letters");
+					}
+				}while(name.length()!=PLAYER_NAME_SIZE);
 				players[i] = new Player(name);
 			}
 			do {
@@ -55,6 +62,7 @@ public class Launcher {
 					System.out.println("No such map");
 				}
 			}while(boardName<=0 || boardName>BOARD_NAMES.length);
+			boardName = boardName -1;
 			do {
 				System.out.println("Please select the map size (between "+MIN_MAP_SIZE+" and "+MAX_MAP_SIZE+" ):");
 				mapSize = scanner.nextInt();
@@ -64,6 +72,7 @@ public class Launcher {
 					System.out.println("Too big");
 				}
 			}while(mapSize<MIN_MAP_SIZE || mapSize>MAX_MAP_SIZE);
+
 			Board board = new Board(BOARD_NAMES[boardName],mapSize);
 			board.generateSquares();
 			Game game1 = new Game(rand.nextInt(255)+1, board, players);

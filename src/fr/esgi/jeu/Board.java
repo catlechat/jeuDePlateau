@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class Board {
 	private static final Random RANDOM = new Random();
+	private static final int MAX_BOARD_LINE_LENGHT = 11;
 	private String name;
 	private int size;
 	private Square[] squares;
@@ -11,6 +12,7 @@ public class Board {
 	public Board(String name, int size) {
 		this.name = name;
 		this.size = size;
+		this.squares = generateSquares();
 	}
 
 	public String getName() {
@@ -33,7 +35,7 @@ public class Board {
 		for (int i = 1; i < size - 1; i++) {
 			squaresTemp[i] = new Square(generateEffect());
 		}
-		squaresTemp[size - 1] = new Square(Effect.NEUTRAL);
+		squaresTemp[size - 1] = new Square(Effect.EMPTY);
 		return this.squares = squaresTemp;
 	}
 
@@ -44,28 +46,19 @@ public class Board {
 		
 		/**version random sur la liste des effets en excluant 
 		 * BEGIN (attention si décommente la ligne)**/
-		//Effect effect = Effect.values()[RANDOM.nextInt(Effect.values().length - 1) + 1];
+		Effect effect = Effect.values()[RANDOM.nextInt(Effect.values().length - 1) + 1];
 		
 		/**version soft de la générération des effets ( que des bonus)**/
-		Effect effect = Effect.BONUS;
+		//Effect effect = Effect.BONUS;
 		return effect;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		int size = getSize();
-		for (int i = 0; i < size; i++) {
-			Square square = getSquares()[i];
-			if (i == size - 1) {
-				sb.append("|END|\n");
-			} else {
-				sb.append("| " + square.getEffect().name() + " ");
-				for (Player player : square.getPlayers()) {
-					sb.append(player.getName() + " ");
-				}
-				sb.append("|");
-			}
+		sb.append("|_"+this.name+"|\n");
+		for (int j = 0; j < this.size; j++) {
+			sb.append(this.squares[j].toString(j+1));
 		}
 		return sb.toString();
 	}
