@@ -1,19 +1,24 @@
 package fr.esgi.jeu;
 
-public class Game {	
+import java.util.Scanner;
+
+public class Game {
 	private static final int CONDITION_COINS_TO_WIN = 20;
+	private boolean GAMEOVER = false;
+	private static final int FIRST_BOARD_CASE = 0;
 	private int id;
 	private Board board;
 	private Player[] players;
 	private int turn;
-	public Boolean conditionToWinIsMet;
+
+	public Square previousSquare;
+	public Square curentSquare;
 
 	public Game(int id, Board board, Player[] players) {
 		this.id = id;
 		this.board = board;
 		this.players = players;
 		this.turn = 1;
-		this.conditionToWinIsMet = false;
 	}
 
 	public Player[] getAllPlayers() {
@@ -25,50 +30,67 @@ public class Game {
 	}
 
 	public void setPlayersInBeginning() {
-		Square first = this.board.getSquares()[0];
 		for (Player player : this.players) {
-			first.setPlayer(player);
+			this.board.getSquares()[FIRST_BOARD_CASE].setPlayer(player);
 			player.setCoins(Effect.BEGIN);
 		}
 	}
-	
+
+	//fonction qui va faire le jeu et qui va retourner le nom du joueur gagnant
+	public void start() {
+		setPlayersInBeginning();
+		System.out.println(board.toString());
+		while (!GAMEOVER) {
+			//l'encregistrement de la game c'est fait ici
+			for (Player player : players) {
+				int positionBeginTurn = player.getPosition();
+				//player is moving
+				Scanner scanner = new Scanner(System.in);
+				System.out.println(player.getName() + " what do you want to do ?");
+				System.out.println("1. Use dice 2. Use coins");
+				//les cases vont etres utiles quand il y aura du choix par exemple acheter les bonus
+				//par defaut si tu choisis un truc diff ca va lancer le dé
+				switch (scanner.nextInt()) {
+					case 2 -> {
+						System.out.println(player.useCoins());
+						System.out.println(player.useDice());
+					}
+					default -> System.out.println(player.useDice());
+				}
+				if (player.getPosition() >= board.getSize()) {
+					player.setPosition(player.getPosition() - board.getSize());
+				}
+				//youre on new case, what effect do you get ??
+				previousSquare = board.getSquares()[positionBeginTurn];
+				previousSquare.removePlayer(player);
+				curentSquare = board.getSquares()[player.getPosition()];
+				curentSquare.setPlayer(player);
+
+				player.setCoins(curentSquare.getEffect());
+
+				if (player.getCoins() >= CONDITION_COINS_TO_WIN) {
+					System.out.println("Game Over, the winner is: "
+							+player.getName()+" with: "+player.getCoins()+" coins.");
+					return;
+				}
+			}
+			this.turn++;
+			System.out.println(this.toString());
+		}
+		return;
+	}
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Here the current state of the game:\n"
-				+ "turn " + this.turn + "\n");
+		//on affiche les info utiles comme le tour
+		sb.append("Here the current state of the game: Turn " + this.turn + ":\n");
+		sb.append("-----------------------------\n");
+		//pour chaque joueur on affiche sa position, ses coins et la caise sur laquelle il est
 		for (Player player : players) {
-			sb.append(player + "\n");
+			sb.append(player.toString());
+			sb.append(this.board.getSquares()[player.getPosition()].toString(player.getPosition()));
+			sb.append("-----------------------------\n");
 		}
-		sb.append(board);
-		for (Player player : players) {
-			sb.append(player.getName() + "'s turn: rolling the dice... ");
-			Square currentSquare = this.board.getSquares()[player.getPosition()];
-			int diceResult = player.move();
-			sb.append("you got " + diceResult + "\n");
-			int afterMovePosition = player.getPosition();
-			int lastSquarePosition = this.board.getSize()-1;
-			int coinsPlayer = player.getCoins();
-			currentSquare.removePlayer(player);
-			if(afterMovePosition >= lastSquarePosition) {
-				if(coinsPlayer >= CONDITION_COINS_TO_WIN) {
-					this.conditionToWinIsMet = true;
-					sb.append("Winner is " + player.getName() + ", congratulations!\n");
-					break;
-				}
-				else {
-					afterMovePosition = afterMovePosition - lastSquarePosition;
-					player.setPositionToBegin(afterMovePosition);
-				}
-			}
-			Square afterMoveSquare = this.board.getSquares()[afterMovePosition];
-			afterMoveSquare.setPlayer(player);
-			Effect afterMoveSquareEffect = afterMoveSquare.getEffect();
-			player.setCoins(afterMoveSquareEffect);
-			sb.append(afterMoveSquareEffect.getMessage() + "\n");		
-		}
-		sb.append(board);
-		this.turn++;
 		return sb.toString();
 	}
 }

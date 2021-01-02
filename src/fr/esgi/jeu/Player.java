@@ -3,8 +3,10 @@ package fr.esgi.jeu;
 import java.util.Random;
 
 public class Player {
-	private static final Random RANDOM = new Random();
-	private static final int DICE_SIZE = 6;
+	private static final int MINIMUM_COINS = 0;
+	private static final int START_POSITION = 0;
+
+	private static final Random rand = new Random();
 
 	private String name;
 	private int position;
@@ -12,8 +14,8 @@ public class Player {
 
 	public Player(String name) {
 		this.name = name;
-		this.position = 0;
-		this.coins = 0;
+		this.position = START_POSITION;
+		this.coins = MINIMUM_COINS;
 	}
 
 	public String getName() {
@@ -24,28 +26,33 @@ public class Player {
 		return this.position;
 	}
 
+	public void setPosition(int position){
+		this.position = position;
+	}
+
+	public String useDice(){
+		StringBuilder sb = new StringBuilder();
+		sb.append(getName()+" ..rolling a dice\n");
+		int res = rand.nextInt(6)+1;
+		sb.append("you got " + res + " !\n");
+		setPosition(getPosition()+res);
+		return sb.toString();
+	}
+
+	public String useCoins(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("not implemented yet..");
+		return sb.toString();
+	}
+
 	public int getCoins() {
 		return this.coins;
 	}
-	
-	
-	//deplacement des joueurs
-	public int move() {
-		int diceResult = RANDOM.nextInt(DICE_SIZE)+1;
-		this.position += diceResult;
-		return diceResult;
-	}
-	public void setPositionToBegin(int remainMoves) {
-		this.position = 0 + remainMoves;
-	}
-	
-	//mise à jour des pieces après atteinte d'une case
+
 	public void setCoins(Effect effect) {
 		if (effect.equals(Effect.LOOSE) || effect.equals(Effect.PEN4A)) {
-			int temp = this.coins;
-			temp -= effect.getCoins();
-			// si le joueur après le malus a un nombre négatif de pièces, on le met à 0
-			this.coins = temp < 0 ? 0 : temp;
+			//Math.max(a;b) si a est plus grand que b alors montre a sinon montre b
+			this.coins = Math.max(this.coins - effect.getCoins(), MINIMUM_COINS);
 		} else if(effect.equals(Effect.BONUS) || effect.equals(Effect.BEGIN)){
 			this.coins += effect.getCoins();
 		}
@@ -53,7 +60,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return getName() + " : " + getCoins() + " coins";
+		return getName() + "'s position: " + getPosition() + " with: " + getCoins() + " coins\n";
 	}
 
 }

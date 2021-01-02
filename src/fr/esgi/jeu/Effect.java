@@ -2,7 +2,7 @@ package fr.esgi.jeu;
 
 public enum Effect {
 
-	BEGIN(0, "It's the beginning, everyone start with 10 coins!", 10), 
+	BEGIN(0, "It's the beginning, everyone start with 10 coins!", 10),
 	EMPTY(1, "Nothing happened.", 0),
 	BONUS(2, "You gain 10 coins!", 10),
 	LOOSE(3, "You loose 2 coins...", 2),

@@ -4,7 +4,6 @@ import java.util.Random;
 
 public class Board {
 	private static final Random RANDOM = new Random();
-	private static final int MAX_BOARD_LINE_LENGHT = 11;
 	private String name;
 	private int size;
 	private Square[] squares;
@@ -29,14 +28,12 @@ public class Board {
 
 
 	public Square[] generateSquares() {
-		int size = this.getSize();
-		Square[] squaresTemp = new Square[size];
-		squaresTemp[0] = new Square(Effect.BEGIN);
-		for (int i = 1; i < size - 1; i++) {
-			squaresTemp[i] = new Square(generateEffect());
+		Square[] boardSquares = new Square[size];
+		boardSquares[0] = new Square(Effect.BEGIN);
+		for (int i = 1; i < size; i++) {
+			boardSquares[i] = new Square(generateEffect());
 		}
-		squaresTemp[size - 1] = new Square(Effect.EMPTY);
-		return this.squares = squaresTemp;
+		return this.squares = boardSquares;
 	}
 
 	public Effect generateEffect() {

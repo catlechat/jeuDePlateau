@@ -3,6 +3,7 @@ package fr.esgi.jeu;
 import java.util.ArrayList;
 
 public class Square {
+	private static final String POSITION_ZERO = "000";
 	private Effect effect;
 	private ArrayList<Player> players;
 
@@ -43,7 +44,7 @@ public class Square {
 	}
 
 	public String stringifyPosition(Integer position){
-		String str = "000";
+		String str = POSITION_ZERO;
 		if (position == 0){
 			return str;
 		}else if(position/100 == 1){
