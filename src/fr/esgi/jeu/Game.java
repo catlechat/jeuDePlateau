@@ -6,6 +6,11 @@ public class Game {
 	private static final int CONDITION_COINS_TO_WIN = 20;
 	private boolean GAMEOVER = false;
 	private static final int FIRST_BOARD_CASE = 0;
+	private static final int BONUS_PRICE = 4;
+	private static final int EMPTY_PRICE = 1;
+	private static final int LOOSE_PRICE = 2;
+	private static final int PEN4A_PRICE = 3;
+
 	private int id;
 	private Board board;
 	private Player[] players;
@@ -56,19 +61,55 @@ public class Game {
 						case 1 ->{
 							System.out.println(player.useDice());
 							waiting = false;
-							break;
 						}
 						case 2 -> {
 							//ici on mets une fonction qui va demander ce qu'il veut faire avec ces points
 							//Acheter et transformer une caise negative ou positive
 							//
-							System.out.println("Achat des trucs bla bla pas encore pret");
-							break;
+							System.out.println("You have "+player.getCoins()+" coins");
+							System.out.println("How do you want to spend coins ?");
+							System.out.println("1. Set a case to BONUS effect for "+BONUS_PRICE+" coins");
+							System.out.println("2. Set a case to LOOSE effect for "+LOOSE_PRICE+" coins");
+							System.out.println("3. Set a case to EMPTY effect for "+EMPTY_PRICE+" coins");
+							System.out.println("4. Set a case to PEN4A effect for "+PEN4A_PRICE+" coins");
+							System.out.println("5. Go back");
+							int res = scanner.nextInt();
+							int price;
+							Effect selectedEffect;
+							if (res == 1){
+								price = BONUS_PRICE;
+								selectedEffect = Effect.BONUS;
+							}else if(res == 2){
+								price = LOOSE_PRICE;
+								selectedEffect = Effect.LOOSE;
+							}else if(res == 3){
+								price = EMPTY_PRICE;
+								selectedEffect = Effect.EMPTY;
+							}else if(res == 4){
+								price = PEN4A_PRICE;
+								selectedEffect = Effect.PEN4A;
+							}else{
+								break;
+							}
+							System.out.println("What case do you want to set ?");
+							System.out.println(board.toString());
+							int selectedCase;
+							do {
+								System.out.println("Please select the case:");
+								selectedCase = scanner.nextInt();
+								if (selectedCase < 0 || selectedCase > board.getSize() || board.getSquares()[selectedCase].getEffect() == selectedEffect) {
+									System.out.println("No such case or the case selected has allready this effect !");
+								}
+							} while (selectedCase < 0 || selectedCase > board.getSize() || board.getSquares()[selectedCase].getEffect() == selectedEffect);
+							System.out.println("This case :");
+							System.out.println(board.getSquares()[selectedCase].toString(selectedCase));
+							System.out.println("Becomes :");
+							board.getSquares()[selectedCase].setEffect(selectedEffect);
+							System.out.println(board.getSquares()[selectedCase].toString(selectedCase));
 						}
 						case 3 -> {
 							System.out.println("Printing board..");
 							System.out.println(board.toString());
-							break;
 						}
 						case 4 -> {
 							System.out.println("Do you want to save the game before exit ?");

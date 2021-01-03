@@ -16,6 +16,10 @@ public class Square {
 		return this.effect;
 	}
 
+	public void setEffect(Effect effect){
+		this.effect = effect;
+	}
+
 	public void setPlayer(Player player) {
 		this.players.add(player);
 	}

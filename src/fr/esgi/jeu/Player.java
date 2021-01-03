@@ -39,12 +39,6 @@ public class Player {
 		return sb.toString();
 	}
 
-	public String useCoins(){
-		StringBuilder sb = new StringBuilder();
-		sb.append("not implemented yet..");
-		return sb.toString();
-	}
-
 	public int getCoins() {
 		return this.coins;
 	}
