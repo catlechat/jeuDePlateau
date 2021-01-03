@@ -29,6 +29,7 @@ public class Square {
 	}
 
 	public String toString(int position) {
+		position = position;
 		//Une caise est sur 9 caracteres; La position est sur 3; l'effet est sur 5;
 		StringBuilder sb = new StringBuilder();
 		//numCase
@@ -48,12 +49,12 @@ public class Square {
 		if (position == 0){
 			return str;
 		}else if(position/100 == 1){
-			return str = "100";
+			return "100";
 		}else if(position/100 == 0){
 			if (position/10==0){
-				return str = "00"+position.toString();
+				return "00"+position.toString();
 			}else{
-				return str = "0"+position.toString();
+				return "0"+position.toString();
 			}
 		}
 		return str;

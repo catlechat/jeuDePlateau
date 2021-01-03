@@ -41,21 +41,48 @@ public class Game {
 		setPlayersInBeginning();
 		System.out.println(board.toString());
 		while (!GAMEOVER) {
-			//l'encregistrement de la game c'est fait ici
 			for (Player player : players) {
 				int positionBeginTurn = player.getPosition();
 				//player is moving
 				Scanner scanner = new Scanner(System.in);
-				System.out.println(player.getName() + " what do you want to do ?");
-				System.out.println("1. Use dice 2. Use coins");
 				//les cases vont etres utiles quand il y aura du choix par exemple acheter les bonus
 				//par defaut si tu choisis un truc diff ca va lancer le dé
-				switch (scanner.nextInt()) {
-					case 2 -> {
-						System.out.println(player.useCoins());
-						System.out.println(player.useDice());
+				boolean waiting = true;
+				while(waiting){
+					System.out.println(player.getName() + " what do you want to do ?");
+					System.out.println("1. Use dice 2. Use coins 3. Print board 4. Exit");
+					System.out.print("Select : >");
+					switch (scanner.nextInt()) {
+						case 1 ->{
+							System.out.println(player.useDice());
+							waiting = false;
+							break;
+						}
+						case 2 -> {
+							//ici on mets une fonction qui va demander ce qu'il veut faire avec ces points
+							//Acheter et transformer une caise negative ou positive
+							//
+							System.out.println("Achat des trucs bla bla pas encore pret");
+							break;
+						}
+						case 3 -> {
+							System.out.println("Printing board..");
+							System.out.println(board.toString());
+							break;
+						}
+						case 4 -> {
+							System.out.println("Do you want to save the game before exit ?");
+							System.out.println("1. Yes 2. NO");
+							int rep = scanner.nextInt();
+							if(rep==1){
+								//ici on enregistre la game dans la bdd et on lui retourne un code de la game
+								return;
+							}else{
+								return;
+							}
+						}
+						default -> System.out.println("Not implemented yet..");
 					}
-					default -> System.out.println(player.useDice());
 				}
 				if (player.getPosition() >= board.getSize()) {
 					player.setPosition(player.getPosition() - board.getSize());
@@ -65,8 +92,9 @@ public class Game {
 				previousSquare.removePlayer(player);
 				curentSquare = board.getSquares()[player.getPosition()];
 				curentSquare.setPlayer(player);
-
-				player.setCoins(curentSquare.getEffect());
+				Effect currentEfect = curentSquare.getEffect();
+				System.out.println(currentEfect.getMessage()+"\n");
+				player.setCoins(currentEfect);
 
 				if (player.getCoins() >= CONDITION_COINS_TO_WIN) {
 					System.out.println("Game Over, the winner is: "
@@ -77,7 +105,6 @@ public class Game {
 			this.turn++;
 			System.out.println(this.toString());
 		}
-		return;
 	}
 	@Override
 	public String toString() {

@@ -55,7 +55,7 @@ public class Board {
 		StringBuilder sb = new StringBuilder();
 		sb.append("|_"+this.name+"|\n");
 		for (int j = 0; j < this.size; j++) {
-			sb.append(this.squares[j].toString(j+1));
+			sb.append(this.squares[j].toString(j));
 		}
 		return sb.toString();
 	}

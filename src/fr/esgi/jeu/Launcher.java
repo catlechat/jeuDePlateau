@@ -21,6 +21,7 @@ public class Launcher {
 				System.out.println("_________1. New Game___________________");
 				System.out.println("_________2. Continue___________________");
 				System.out.println("_________3. Exit_______________________");
+				System.out.print("_________Select : >");
 				switch (scanner.nextInt()) {
 					case 1 -> {
 						Random rand = new Random();
@@ -68,6 +69,7 @@ public class Launcher {
 						Board board = new Board(BOARD_NAMES[boardName], mapSize);
 						board.generateSquares();
 						Game game1 = new Game(rand.nextInt(255) + 1, board, players);
+						//generer id a partir de la date a la place de rand
 						game1.start();
 					}
 					case 2 -> System.out.println("Here you'll be able to load a game you saved");

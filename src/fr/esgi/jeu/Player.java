@@ -34,7 +34,7 @@ public class Player {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getName()+" ..rolling a dice\n");
 		int res = rand.nextInt(6)+1;
-		sb.append("you got " + res + " !\n");
+		sb.append("you got " + res + " !");
 		setPosition(getPosition()+res);
 		return sb.toString();
 	}
