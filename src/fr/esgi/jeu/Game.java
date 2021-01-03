@@ -45,13 +45,12 @@ public class Game {
 	public void start() {
 		setPlayersInBeginning();
 		System.out.println(board.toString());
+		System.out.println(Effect.BEGIN.getMessage());
 		while (!GAMEOVER) {
 			for (Player player : players) {
 				int positionBeginTurn = player.getPosition();
 				//player is moving
 				Scanner scanner = new Scanner(System.in);
-				//les cases vont etres utiles quand il y aura du choix par exemple acheter les bonus
-				//par defaut si tu choisis un truc diff ca va lancer le dé
 				boolean waiting = true;
 				while(waiting){
 					System.out.println(player.getName() + " what do you want to do ?");
@@ -91,6 +90,10 @@ public class Game {
 							}else{
 								break;
 							}
+							if (price > player.getCoins()){
+								System.out.println("You don't have enough coins !");
+								break;
+							}
 							System.out.println("What case do you want to set ?");
 							System.out.println(board.toString());
 							int selectedCase;
@@ -104,6 +107,7 @@ public class Game {
 							System.out.println("This case :");
 							System.out.println(board.getSquares()[selectedCase].toString(selectedCase));
 							System.out.println("Becomes :");
+							player.setCoins(price);
 							board.getSquares()[selectedCase].setEffect(selectedEffect);
 							System.out.println(board.getSquares()[selectedCase].toString(selectedCase));
 						}

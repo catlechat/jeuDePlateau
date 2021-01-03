@@ -52,6 +52,10 @@ public class Player {
 		}
 	}
 
+	public void setCoins(int price){
+		this.coins -= price;
+	}
+
 	@Override
 	public String toString() {
 		return getName() + "'s position: " + getPosition() + " with: " + getCoins() + " coins\n";
