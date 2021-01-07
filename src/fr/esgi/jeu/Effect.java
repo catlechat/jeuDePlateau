@@ -8,18 +8,14 @@ public enum Effect {
 	LOOSE(3, "You loose 2 coins...", 2),
 	PEN4A(4, "What the *family friendly game*, everyone loose 1 coin!", 1);
 
-	private int id;
-	private String message;
-	private int coins;
+	private final int id;
+	private final String message;
+	private final int coins;
 
 	Effect(int id, String message, int coins) {
 		this.id = id;
 		this.message = message;
 		this.coins = coins;
-	}
-
-	public int getId() {
-		return this.id;
 	}
 
 	public String getMessage() {

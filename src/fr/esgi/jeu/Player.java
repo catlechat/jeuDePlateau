@@ -8,7 +8,7 @@ public class Player {
 
 	private static final Random rand = new Random();
 
-	private String name;
+	private final String name;
 	private int position;
 	private int coins;
 
@@ -32,9 +32,9 @@ public class Player {
 
 	public String useDice(){
 		StringBuilder sb = new StringBuilder();
-		sb.append(getName()+" ..rolling a dice\n");
+		sb.append(getName()).append(" ..rolling a dice\n");
 		int res = rand.nextInt(6)+1;
-		sb.append("you got " + res + " !");
+		sb.append("you got ").append(res).append(" !");
 		setPosition(getPosition()+res);
 		return sb.toString();
 	}

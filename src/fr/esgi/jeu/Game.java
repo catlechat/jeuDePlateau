@@ -4,16 +4,15 @@ import java.util.Scanner;
 
 public class Game {
 	private static final int CONDITION_COINS_TO_WIN = 20;
-	private boolean GAMEOVER = false;
 	private static final int FIRST_BOARD_CASE = 0;
 	private static final int BONUS_PRICE = 4;
 	private static final int EMPTY_PRICE = 1;
 	private static final int LOOSE_PRICE = 2;
 	private static final int PEN4A_PRICE = 3;
 
-	private int id;
-	private Board board;
-	private Player[] players;
+	private final int id;
+	private final Board board;
+	private final Player[] players;
 	private int turn;
 
 	public Square previousSquare;
@@ -24,14 +23,6 @@ public class Game {
 		this.board = board;
 		this.players = players;
 		this.turn = 1;
-	}
-
-	public Player[] getAllPlayers() {
-		return this.players;
-	}
-
-	public Board getPlateau() {
-		return this.board;
 	}
 
 	public void setPlayersInBeginning() {
@@ -46,7 +37,7 @@ public class Game {
 		setPlayersInBeginning();
 		System.out.println(board.toString());
 		System.out.println(Effect.BEGIN.getMessage());
-		while (!GAMEOVER) {
+		while (true) {
 			for (Player player : players) {
 				int positionBeginTurn = player.getPosition();
 				//player is moving
@@ -155,7 +146,7 @@ public class Game {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		//on affiche les info utiles comme le tour
-		sb.append("Here the current state of the game: Turn " + this.turn + ":\n");
+		sb.append("Here the current state of the game: Turn ").append(this.turn).append(":\n");
 		sb.append("-----------------------------\n");
 		//pour chaque joueur on affiche sa position, ses coins et la caise sur laquelle il est
 		for (Player player : players) {

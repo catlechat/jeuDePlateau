@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Square {
 	private static final String POSITION_ZERO = "000";
 	private Effect effect;
-	private ArrayList<Player> players;
+	private final ArrayList<Player> players;
 
 	public Square(Effect effect) {
 		this.effect = effect;
-		this.players = new ArrayList<Player>();
+		this.players = new ArrayList<>();
 	}
 
 	public Effect getEffect() {
@@ -28,21 +28,16 @@ public class Square {
 		this.players.remove(player);
 	}
 
-	public ArrayList<Player> getPlayers() {
-		return this.players;
-	}
-
 	public String toString(int position) {
-		position = position;
 		//Une caise est sur 9 caracteres; La position est sur 3; l'effet est sur 5;
 		StringBuilder sb = new StringBuilder();
 		//numCase
-		sb.append("|__"+stringifyPosition(position)+"__|");
+		sb.append("|__").append(stringifyPosition(position)).append("__|");
 		//effectCase
-		sb.append("|_"+this.effect+"_|");
+		sb.append("|_").append(this.effect).append("_|");
 		//players
 		for (Player p : players) {
-			sb.append("|__"+p.getName()+"__|");
+			sb.append("|__").append(p.getName()).append("__|");
 		}
 		sb.append("\n");
 		return sb.toString();
